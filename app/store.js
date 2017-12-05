@@ -3,6 +3,7 @@
  */
 
 import { createStore, applyMiddleware, compose } from 'redux';
+import { reactReduxFirebase } from 'react-redux-firebase';
 import { fromJS } from 'immutable';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
@@ -10,6 +11,15 @@ import logger from 'redux-logger';
 import createReducer from './reducers';
 
 const sagaMiddleware = createSagaMiddleware();
+
+const firebaseConfig = {
+  apiKey: 'AIzaSyC-pgR0sHzOg_XDhvvoy1y6Fjy31ktaoQU',
+  authDomain: 'seemychain-b7a5d.firebaseapp.com',
+  databaseURL: 'https://seemychain-b7a5d.firebaseio.com',
+  storageBucket: '',
+};
+
+const reduxFirebaseConfig = { userProfile: 'users' };
 
 export default function configureStore(initialState = {}, history) {
   // Create the store with two middlewares
@@ -23,6 +33,7 @@ export default function configureStore(initialState = {}, history) {
 
   const enhancers = [
     applyMiddleware(...middlewares),
+    reactReduxFirebase(firebaseConfig, reduxFirebaseConfig),
   ];
 
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose
