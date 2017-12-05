@@ -4,6 +4,7 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { createStructuredSelector } from 'reselect';
+
 import { makeSelectGlobal } from '../App/selectors';
 import ThemeDefault from '../../themes/theme-default';
 import * as appActions from '../../containers/App/actions';
@@ -11,6 +12,7 @@ import Login from '../../components/Auth/Login';
 import Register from '../../components/Auth/Register';
 import ForgotPassword from '../../components/Auth/ForgotPassword';
 
+// @connect((state) => ({ todos: state.todos }))
 class AuthPage extends React.Component { // eslint-disable-line react/prefer-stateless-function
   constructor(props) {
     super(props);

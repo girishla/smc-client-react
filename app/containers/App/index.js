@@ -15,6 +15,7 @@ import Theme from '../../config/theme';
 import Styles from './styles';
 import { updateContentDimensions, getCurrentTheme } from './appUtils';
 import { findMenuItem } from '../../components/LeftDrawer/menuUtils';
+import TestAuth from 'components/TestAuth'
 
 const theme = new Theme();
 
@@ -128,6 +129,9 @@ class App extends React.Component {
             transitionEnterTimeout={0}
             transitionLeave={false}
           >
+
+          <TestAuth></TestAuth>
+           
             {React.cloneElement(this.props.children, {
               key: path,
             })}

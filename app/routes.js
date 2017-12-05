@@ -37,9 +37,10 @@ export default function createRoutes(store) {
     {
       path: '/login',
       name: 'loginPage',
+      // type: 'public',
       getComponent(nextState, cb) {
         const importModules = Promise.all([
-          System.import('containers/Auth'),
+          System.import('containers/Login/containers/LoginContainer'),
         ]);
 
         const renderRoute = loadModule(cb);

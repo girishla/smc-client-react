@@ -70,7 +70,6 @@
           "transform-react-remove-prop-types",
           "transform-react-constant-elements",
           "transform-react-inline-elements"
-          
         ]
       },
       "test": {
@@ -123,8 +122,12 @@
         "as-needed"
       ],
       "comma-dangle": [
-        2,
-        "always-multiline"
+        "error",
+        "ignore"
+      ],
+      "semi": [
+        "error",
+        "ignore"
       ],
       "import/imports-first": 0,
       "import/newline-after-import": 0,
@@ -243,12 +246,16 @@
     "react-image-gallery": "^0.8.3",
     "react-intl": "^2.4.0",
     "react-redux": "^5.0.5",
+    "react-redux-firebase": "latest",
     "react-router": "^3.0.2",
     "react-router-redux": "4.0.6",
     "react-router-scroll": "^0.4.2",
     "react-tap-event-plugin": "^2.0.1",
     "recharts": "^1.0.0-alpha.4",
     "redux": "3.6.0",
+    "redux-auth-wrapper": "^1.0.0",
+    "redux-form": "^6.6.1",
+    "redux-form-material-ui": "^4.2.0",
     "redux-immutable": "3.0.8",
     "redux-logger": "^3.0.6",
     "redux-saga": "^0.15.4",
@@ -256,9 +263,7 @@
     "sanitize.css": "4.1.0",
     "styled-components": "^2.1.2",
     "warning": "3.0.0",
-    "whatwg-fetch": "2.0.1",
-    "react-redux-firebase": "latest",
-    "redux-auth-wrapper": "^1.0.0"
+    "whatwg-fetch": "2.0.1"
   },
   "devDependencies": {
     "babel-cli": "6.18.0",
@@ -314,6 +319,8 @@
     "url-loader": "0.5.7",
     "webpack": "^2.5.1",
     "webpack-dev-middleware": "1.9.0",
-    "webpack-hot-middleware": "2.15.0"
+    "webpack-hot-middleware": "2.15.0",
+    "sass-loader": "^6.0.5",
+    "node-sass": "^4.5.3"
   }
 }

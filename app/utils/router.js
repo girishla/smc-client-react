@@ -2,6 +2,7 @@ import { UserAuthWrapper } from 'redux-auth-wrapper';
 import { browserHistory } from 'react-router';
 import { LIST_PATH } from 'constants';
 import { pathToJS } from 'react-redux-firebase';
+import Loading from 'components/Loading';
 
 import RefreshIndicator from 'material-ui/RefreshIndicator';
 
@@ -17,7 +18,7 @@ const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT';
 export const UserIsAuthenticated = UserAuthWrapper({
   // eslint-disable-line new-cap
   wrapperDisplayName: 'UserIsAuthenticated',
-  LoadingComponent: RefreshIndicator,
+  LoadingComponent:  Loading,
   authSelector: ({ firebase }) => pathToJS(firebase, 'auth'),
   authenticatingSelector: ({ firebase }) =>
     pathToJS(firebase, 'auth') === undefined ||
@@ -44,10 +45,10 @@ export const UserIsNotAuthenticated = UserAuthWrapper({
   // eslint-disable-line new-cap
   wrapperDisplayName: 'UserIsNotAuthenticated',
   allowRedirectBack: false,
-  LoadingComponent: RefreshIndicator,
+  LoadingComponent: Loading,
   failureRedirectPath: (state, props) =>
     // redirect to page user was on or to list path
-    props.location.query.redirect || LIST_PATH,
+    props.location.query.redirect || '/login',
   authSelector: ({ firebase }) => pathToJS(firebase, 'auth'),
   authenticatingSelector: ({ firebase }) =>
     pathToJS(firebase, 'auth') === undefined ||
