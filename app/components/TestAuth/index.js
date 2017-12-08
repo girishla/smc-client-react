@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
+import { UserIsNotAuthenticated } from 'utils/router';
+
 import {
     firebaseConnect,
     isLoaded,
@@ -8,6 +10,8 @@ import {
     pathToJS
 } from 'react-redux-firebase'
 
+
+@UserIsNotAuthenticated
 @firebaseConnect() // add this.props.firebase
 export class TestAuth extends Component {
 
@@ -45,12 +49,12 @@ export class TestAuth extends Component {
     render() {
 
 
-        const { authError } = this.props
+        const { authError,location } = this.props
         const { auth } = this.props
         const { snackCanOpen } = this.state
 
 
-        console.log('auth', this.props.auth)
+        console.log('location', this.props)
 
         if (!isLoaded(auth)) {
             return (
@@ -59,7 +63,6 @@ export class TestAuth extends Component {
               </div>
             )
           }
-
 
         if(isEmpty(auth)) {
             return (
@@ -83,6 +86,10 @@ export class TestAuth extends Component {
     }
 }
 
+
+// export default UserIsNotAuthenticated(connect(state => ({
+//     auth: pathToJS(state.get('firebase'), 'auth')
+// }))(TestAuth))
 
 export default connect(state => ({
     auth: pathToJS(state.get('firebase'), 'auth')

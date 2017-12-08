@@ -21,20 +21,19 @@ export const UserIsAuthenticated = UserAuthWrapper({
   LoadingComponent: Loading,
   authSelector: (state) => pathToJS(state.get('firebase'), 'auth'),
   authenticatingSelector: (state) => {
-    let firebase=state.get('firebase')
+    let firebase = state.get('firebase')
 
     return pathToJS(firebase, 'auth') === undefined ||
       pathToJS(firebase, 'isInitializing') === true
   },
   predicate: (auth) => auth !== null,
-  redirectAction: (newLoc) => (dispatch) => {
+  redirectAction: (newLoc) => {
 
-    console.log("redirectAction")
     browserHistory.replace(newLoc);
-    dispatch({
+    return {
       type: UNAUTHED_REDIRECT,
       payload: { message: 'User is not authenticated.' },
-    });
+    };
   },
 });
 
@@ -53,18 +52,25 @@ export const UserIsNotAuthenticated = UserAuthWrapper({
   wrapperDisplayName: 'UserIsNotAuthenticated',
   allowRedirectBack: false,
   LoadingComponent: Loading,
-  failureRedirectPath: (state, props) =>
+  failureRedirectPath: (state, props) => {
+
+    console.log('props', props)
     // redirect to page user was on or to list path
-    props.location.query.redirect || '/login',
-  authSelector: ({ firebase }) => pathToJS(firebase, 'auth'),
-  authenticatingSelector: ({ firebase }) =>
-    pathToJS(firebase, 'auth') === undefined ||
-    pathToJS(firebase, 'isInitializing') === true,
-  predicate: (auth) => auth === null,
-  redirectAction: (newLoc) => (dispatch) => {
-    browserHistory.replace(newLoc);
-    dispatch({ type: AUTHED_REDIRECT });
+    return (props.location && props.location.query.redirect) || '/'
   },
+
+  authSelector: (state) => pathToJS(state.get('firebase'), 'auth'),
+  authenticatingSelector: (state) =>
+    pathToJS(state.get('firebase'), 'auth') === undefined ||
+    pathToJS(state.get('firebase'), 'isInitializing') === true,
+  predicate: (auth) => auth === null,
+  redirectAction: (newLoc) => {
+        browserHistory.replace(newLoc);
+        return {
+          type: AUTHED_REDIRECT,
+          payload: { message: 'User is  authenticated.' },
+        };
+      },
 });
 
 export default {

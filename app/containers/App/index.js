@@ -130,7 +130,6 @@ class App extends React.Component {
             transitionLeave={false}
           >
 
-          <TestAuth></TestAuth>
            
             {React.cloneElement(this.props.children, {
               key: path,

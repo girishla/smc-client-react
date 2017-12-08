@@ -35,10 +35,12 @@ class DashboardPage extends React.Component {
   render() {
     return (
       <PageBase
-        navigation="Application / Dashboard"
+        navigation="Application / Dashboard{location}"
         noWrapContent
         loading={this.state.loading}
       >
+
+    
 
       </PageBase>
     );
