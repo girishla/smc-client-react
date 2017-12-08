@@ -17,7 +17,7 @@ class Register extends React.PureComponent { // eslint-disable-line react/prefer
                 Sign Up
               </div>
               <div style={styles.logoSmallContainer}>
-                <img src={Logo} alt="SeeMyChain" />
+                <img src={Logo} alt="Globi" />
               </div>
             </div>
             <hr />

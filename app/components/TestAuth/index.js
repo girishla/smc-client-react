@@ -25,7 +25,7 @@ export class TestAuth extends Component {
     googleLogin = loginData => {
         this.setState({ isLoading: true })
         return this.props.firebase
-            .login({ provider: 'google', type: "redirect" })
+            .login({ provider: 'facebook', type: "redirect" })
             .then(() => {
                 this.setState({ isLoading: false })
                 // this is where you can redirect to another route

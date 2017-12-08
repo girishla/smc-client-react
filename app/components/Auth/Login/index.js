@@ -21,7 +21,7 @@ class Login extends React.PureComponent { // eslint-disable-line react/prefer-st
             <div style={styles.logoContainer}>
               <img
                 style={{ width: 295, height: 54, fill: blue200 }}
-                src={Logo} alt="SeeMyChain"
+                src={Logo} alt="Globi"
               />
             </div>
             {

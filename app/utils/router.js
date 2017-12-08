@@ -18,13 +18,18 @@ const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT';
 export const UserIsAuthenticated = UserAuthWrapper({
   // eslint-disable-line new-cap
   wrapperDisplayName: 'UserIsAuthenticated',
-  LoadingComponent:  Loading,
-  authSelector: ({ firebase }) => pathToJS(firebase, 'auth'),
-  authenticatingSelector: ({ firebase }) =>
-    pathToJS(firebase, 'auth') === undefined ||
-    pathToJS(firebase, 'isInitializing') === true,
+  LoadingComponent: Loading,
+  authSelector: (state) => pathToJS(state.get('firebase'), 'auth'),
+  authenticatingSelector: (state) => {
+    let firebase=state.get('firebase')
+
+    return pathToJS(firebase, 'auth') === undefined ||
+      pathToJS(firebase, 'isInitializing') === true
+  },
   predicate: (auth) => auth !== null,
   redirectAction: (newLoc) => (dispatch) => {
+
+    console.log("redirectAction")
     browserHistory.replace(newLoc);
     dispatch({
       type: UNAUTHED_REDIRECT,
@@ -32,6 +37,8 @@ export const UserIsAuthenticated = UserAuthWrapper({
     });
   },
 });
+
+
 
 /**
  * @description Higher Order Component that redirects to listings page or most

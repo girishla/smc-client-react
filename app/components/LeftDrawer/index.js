@@ -126,7 +126,7 @@ class LeftDrawer extends React.Component {
         open={navDrawerOpen}
       >
         <div style={styles.logo}>
-          SeeMyChain
+          Globi
         </div>
         <div style={styles.avatar.div}>
           <Avatar

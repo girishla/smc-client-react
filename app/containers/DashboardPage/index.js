@@ -12,12 +12,12 @@ import { firebaseConnect, pathToJS } from 'react-redux-firebase';
 // import { reduxFirebase as fbReduxSettings } from 'config';
 import { connect } from 'react-redux';
 
-@UserIsAuthenticated // redirect to /login if user is not authenticated
+// @UserIsAuthenticated // redirect to /login if user is not authenticated
 @firebaseConnect()
-@connect(({ firebase }) => ({
-  auth: pathToJS(firebase, 'auth'),
-  account: pathToJS(firebase, 'profile'),
-}))
+// @connect(({ firebase }) => ({
+//   auth: pathToJS(firebase, 'auth'),
+//   account: pathToJS(firebase, 'profile'),
+// }))
 class DashboardPage extends React.Component {
   constructor(props) {
     super(props);
@@ -45,4 +45,11 @@ class DashboardPage extends React.Component {
   }
 }
 
-export default DashboardPage;
+// export default DashboardPage;
+
+
+export default UserIsAuthenticated(connect(({ firebase }) => ({
+  auth: pathToJS(firebase, 'auth'),
+  account: pathToJS(firebase, 'profile'),
+}))(DashboardPage))
+

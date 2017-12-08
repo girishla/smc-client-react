@@ -9,13 +9,21 @@ import MenuItem from 'material-ui/MenuItem';
 import { createStructuredSelector } from 'reselect';
 import FontIcon from 'material-ui/FontIcon';
 import * as appActions from '../../containers/App/actions';
-import { makeSelectGlobal } from '../../containers/App/selectors';
+import { makeSelectGlobal, makeSelectFirebaseAuth } from '../../containers/App/selectors';
 import Theme from '../../config/theme';
 import Styles from './styles';
 import TabNav from './TabsNav';
+import {
+  firebaseConnect,
+  isLoaded,
+  isEmpty,
+  pathToJS
+} from 'react-redux-firebase'
+
 
 const theme = new Theme();
 
+@firebaseConnect() // add this.props.firebase
 class Header extends React.Component {
   constructor(props) {
     super(props);
@@ -36,14 +44,41 @@ class Header extends React.Component {
   }
 
   signOut() {
-    this.props.actions.signOut();
+    // this.props.actions.signOut();
+    console.log('logout')
+    this.props.firebase.logout();
   }
 
+  googleLogin = loginData => {
+    this.setState({ isLoading: true })
+    return this.props.firebase
+      .login({ provider: 'facebook', type: "redirect" })
+      .then(() => {
+        this.setState({ isLoading: false })
+        // this is where you can redirect to another route
+      })
+      .catch((error) => {
+        this.setState({ isLoading: false })
+        console.log('there was an error', error)
+        console.log('error prop:', this.props.authError) // thanks to connect
+      })
+  }
+
+
   render() {
-    const { styles, handleChangeRequestNavDrawer, appStore } = this.props;
+    const { styles, handleChangeRequestNavDrawer, appStore, auth } = this.props;
     const style = Styles(appStore.isBoxedLayout, this.state.currentTheme);
 
+    let authButton = null;
+    if (isEmpty(auth)) {
+      authButton = <MenuItem primaryText="Signin/Signup" onClick={this.googleLogin} />
+
+    } else {
+      authButton = <MenuItem primaryText="Sign out" onClick={this.signOut} />
+    }
+
     return (
+
       <div>
         <AppBar
           style={{ ...styles, ...style.appBar }}
@@ -57,7 +92,7 @@ class Header extends React.Component {
                 ) : null
               }
             </div>
-        }
+          }
           iconElementLeft={
             <IconButton
               iconStyle={style.iconButton}
@@ -79,13 +114,11 @@ class Header extends React.Component {
                 targetOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'top' }}
               >
-                <MenuItem
-                  primaryText="Sign out"
-                  onClick={this.signOut}
-                />
+
+                {authButton}
               </IconMenu>
             </div>
-        }
+          }
         />
       </div>
     );
@@ -97,10 +130,12 @@ Header.propTypes = {
   handleChangeRequestNavDrawer: PropTypes.func,
   actions: PropTypes.any,
   appStore: PropTypes.any,
+  appStore: PropTypes.any,
 };
 
 const mapStateToProps = createStructuredSelector({
   appStore: makeSelectGlobal(),
+  auth: makeSelectFirebaseAuth()
 });
 
 function mapDispatchToProps(dispatch) {
@@ -110,3 +145,5 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+

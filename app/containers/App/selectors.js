@@ -1,4 +1,8 @@
 import { createSelector } from 'reselect';
+import {
+  pathToJS
+} from 'react-redux-firebase'
+
 
 /**
  * The global state selectors
@@ -8,8 +12,16 @@ const selectGlobal = () => (state) => state.get('global');
 
 const makeSelectGlobal = () => createSelector(
   selectGlobal(),
-  (substate) => substate.toJS()
+  (substate) => substate.toJS(),
 );
+
+
+const selectFirebase = () => (state) => state.get('firebase');
+const makeSelectFirebaseAuth = () => createSelector(
+  selectFirebase(),
+  (firebase) => pathToJS(firebase, 'auth')
+);
+
 
 
 const makeSelectLocationState = () => {
@@ -32,4 +44,5 @@ export {
   selectGlobal,
   makeSelectGlobal,
   makeSelectLocationState,
+  makeSelectFirebaseAuth
 };

@@ -10,6 +10,8 @@ import * as appActions from '../../../containers/App/actions';
 import { makeSelectGlobal } from '../../../containers/App/selectors';
 import { scrollToMenuItemAndOpenViews } from '../../LeftDrawer/menuUtils';
 
+
+
 class Header extends React.Component {
   constructor(props) {
     super(props);
