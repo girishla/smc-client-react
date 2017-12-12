@@ -41,7 +41,7 @@ export default function createRoutes(store) {
       getComponent(nextState, cb) {
         const importModules = Promise.all([
           System.import('components/TestAuth'),
-          
+
         ]);
 
         const renderRoute = loadModule(cb);

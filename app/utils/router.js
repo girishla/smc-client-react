@@ -4,8 +4,6 @@ import { LIST_PATH } from 'constants';
 import { pathToJS } from 'react-redux-firebase';
 import Loading from 'components/Loading';
 
-import RefreshIndicator from 'material-ui/RefreshIndicator';
-
 const AUTHED_REDIRECT = 'AUTHED_REDIRECT';
 const UNAUTHED_REDIRECT = 'UNAUTHED_REDIRECT';
 

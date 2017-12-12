@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Paper from 'material-ui/Paper';
 import Divider from 'material-ui/Divider';
-import RefreshIndicator from 'material-ui/RefreshIndicator';
+import Spinner from 'components/Spinner'
 import globalStyles from '../../styles';
 
 class PageBase extends React.Component {
@@ -25,17 +25,11 @@ class PageBase extends React.Component {
     const { title, navigation, noWrapContent, children, minHeight } = this.props;
 
     const content = (
-      <div style={{ minHeight: minHeight || 500, height: '100%' }}>
+      <div style={{display: 'flex',justifyContent:'center'}}>
         {
-          this.state.loading ? (
-            <div style={{ position: 'relative' }}>
-              <RefreshIndicator
-                size={40}
-                left={-20}
-                top={200}
-                status={'loading'}
-                style={{ marginLeft: '50%' }}
-              />
+          this.props.loading? (
+            <div style={{textAlign: 'center'}}>
+              <Spinner style={{display: 'inline-block'}}  name="double-bounce" color="rgb(30, 136, 229)"/>
             </div>
           ) :
             <div>
